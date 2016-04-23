@@ -1,15 +1,15 @@
-<?php require('header.php'); 
+<?php
+require('header.php');
 
 @session_start();
-$nombres="";
+$nombres = "";
 
 
-  if ( $_SESSION['estado'] == "logeado"  && $_SESSION['rol'] == "evaluador" ) {
-      $nombres=$_SESSION['usuario'];
-      
-   } else {
-      echo "<script language=Javascript> location.href='../index.php'; </script>";
-   }
+if ($_SESSION['estado'] == "logeado" && $_SESSION['rol'] == "evaluador") {
+    $nombres = $_SESSION['usuario'];
+} else {
+    echo "<script language=Javascript> location.href='../index.php'; </script>";
+}
 ?>
 <div>
     <ul class="breadcrumb">
@@ -18,26 +18,24 @@ $nombres="";
         </li>
     </ul>
 </div>
-<div class="box-content alerts">
-  <div class="alert alert-success">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Bienvenido </strong> <?php echo $nombres?>.
-  </div>
-</div>
+
 
 <div class="row">  
-    <div class="box col-md-4" >
+    <div class="box col-md-12" >
         <div class="box-inner homepage-box">
             <div class="box-header well" data-original-title="">
                 <h2><i class="glyphicon glyphicon-list-alt"></i>  </h2>
             </div>
-            <div class="box-content">
-               <form class="form-horizontal" action="index.html" method="post">
-                   
-                        <br/><br/>
-                        
-                </form>
-            </div>
+            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 panel panel-default">
+                    <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+                        <img class="img-form" src="../img/evaluador.gif">
+                    </div>
+                    <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
+                        <br><br><br>
+                        <label>Bienvenido <?php echo $nombres ?>. </label>
+                    </div>                                 
+                </div>
+           </div>
         </div>
     </div>
     <!--/span-->

@@ -10,9 +10,12 @@ $nombres="";
       echo "<script language=Javascript> location.href='../../index.php'; </script>";
    }
 
+   
+$id = $_SESSION['id'];  
+
 require "../../model/Propuesta.php";
 $prop = new Propuesta();
-$propuestas=$prop->listarPropuesta();
+$propuestas=$prop->listarPropuestaEvaluador($id);
 
 require "../../model/convocatoria.php";
 $con = new convocatoria();
@@ -78,7 +81,7 @@ $facul = new facultad();
                 <td class="center">
         
                 <a href="calificar.php?id='.$prop['id_propuesta'].'">
-                    <img alt="Calificar" title="Calificar" src="../../img/editar.gif" height="18" width="18"/>
+                    <img alt="Calificar" title="Calificar" src="../../img/calificar.gif" height="18" width="18"/>
                 </a>
                 <a href="../../controller/propuesta.php?opc=8&id='.$prop['id_propuesta'].'&e='.$prop['estado'].'">
                     <img alt="Descargar" title="Descargar" src="../../img/descargar.png" height="17" width="17"/>

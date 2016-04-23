@@ -79,7 +79,7 @@ $facul = new facultad();
                 <td class="center">
         
                 <a href="calificar.php?id='.$proy['id_proyecto'].'">
-                    <img alt="calificar" title="calificar" src="../../img/editar.gif" height="18" width="18"/>
+                    <img alt="calificar" title="calificar" src="../../img/calificar.gif" height="18" width="18"/>
                 </a>
                 
                 </td>

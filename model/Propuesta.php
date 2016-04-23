@@ -194,7 +194,10 @@ public function eliminarPropuesta($id_propuesta)
         
         return true;    
     }
-    
+    /**
+     * Método para buscar el último id registrado en la tabla propuesta.
+     * @return int
+     */
     public function consultarUltimoId()
     {
         include 'conectar.php';
@@ -207,8 +210,26 @@ public function eliminarPropuesta($id_propuesta)
               
         return $row[0];    
     }
-    
-
+    /**
+     * Método para listar las propuestas por el id_evaluador.
+     * @param int $id_evaluador
+     * @return Array
+     */
+    public function listarPropuestaEvaluador($id_evaluador)
+    {
+        include 'conectar.php';
+        
+        $resultado = mysql_query("SELECT * FROM `propuesta` WHERE estado='PENDIENTE' AND evaluador_propuesta = $id_evaluador" );
+        $propuestas= array();
+ 
+        while($propuesta = mysql_fetch_assoc($resultado))
+        {  $propuestas[] = $propuesta;}
+        
+                      
+        mysql_close();   
+ 
+        return $propuestas;
+    } 
 }
 
 
