@@ -49,7 +49,7 @@ class evaluador {
      * @return array refrenciado que contiene en la posicion 'nombres'->un string con los nombre de las disciplinas, y en la posicion 'ids'-> un array con los id de las disciplinas registradas
      */
     private function buscarDisciplinaEvaluador($id) {               
-        $resultado = mysql_query("SELECT id_plan FROM evaluador_plan_estudio WHERE id_evaluador = $id;");        
+        $resultado = mysql_query('SELECT id_plan FROM evaluador_plan_estudio WHERE id_evaluador ='.$id);        
         $disciplina_id=array();
         $disciplina = "";
         while($evaludor = mysql_fetch_array($resultado)){
@@ -66,7 +66,7 @@ class evaluador {
      * @return string nombre de la disciplina
      */
     private function buscarNombreDisciplinaEvaluador($id_plan) {        
-        $resultado = mysql_query("SELECT nombre FROM plan_estudio WHERE id_plan = $id_plan;");
+        $resultado = mysql_query('SELECT nombre FROM plan_estudio WHERE id_plan ='.$id_plan);
         $datos = mysql_fetch_object($resultado);                
         return utf8_encode($datos->nombre);
     }

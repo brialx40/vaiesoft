@@ -115,8 +115,12 @@ require('head.php');
             <div class="box-header well" data-original-title="">
                 <h2><i class="glyphicon glyphicon-edit"></i> Registrar Par Evaluador</h2>
             </div>
-            <div class="box-content">
-                 <div class="alert alert-info" role="alert">
+            <div class="col-md-2">
+              <img src="img/evaluador.gif">
+                 
+            </div>
+             <div class="col-md-8 alert alert-info" role="alert">
+                    
                      <p align="justify">
                      La información que registre en el siguiente formulario sera valorada por el 
                      administrador del sistema para validar su vericidad, posteriormente le llegara 
@@ -126,7 +130,10 @@ require('head.php');
                      Si tiene alguna duda puede comunicarse al correo electronico: <b>viceinvestigaciones@ufps.edu.co</b>	
                      <br>
                      <b>Nota:</b> Si ya tiene una cuenta registrada no podra realizar el registro.</p>
-                </div>
+                     
+                </div> 
+            <div class="box-content">
+                 
                 <form class="form-inline" role="form" method="post" name="form1" id="form1" onSubmit="return validar(this)">
                     <div class="form-group">
                         <label class="control-label" for="inputSuccess4">Identificaci&oacute;n:<span title="Campo Obligatorio" style="color: red; font-size: 12pt;">*</span></label>
