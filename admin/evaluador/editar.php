@@ -22,7 +22,13 @@ $_SESSION['viejas']=$editar['disciplinas']['ids'];
     function validar(f) {
 
         condicion = true;
-
+        
+        if(f['disciplinas[]'].selectedIndex < 0){
+          alert('Por favor llene el campo de Disciplinas');         
+          condicion=false;
+          return false;
+        }
+        
         if (f.identificacion.value == '') {
             alert('Por favor llene el campo Identificacion');
             f.identificacion.focus();

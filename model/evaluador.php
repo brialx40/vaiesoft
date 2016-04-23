@@ -29,8 +29,8 @@ class evaluador {
             $evaluadores[] = $evaluador;
         }
         //agrego al array del usuario el array que contiene las disciplinas por nombre(String) y una lista de id de disciplinas     
-        $evaluadores[0]['disciplinas']=$this->buscarDisciplinaEvaluador($id);
-        
+        $evaluadores[0]['disciplinas'] = $this->buscarDisciplinaEvaluador($id);
+
         if (sizeof($evaluadores) == 0) {
             $evaluadores[0]['identificacion'] = 0;
             $evaluadores[0]['nombre'] = 0;
@@ -43,31 +43,32 @@ class evaluador {
 
         return $evaluadores[0];
     }
+
     /**
      * Metodo para buscar las disciplinas registradas a un evaluador
      * @param integer $id identificacion en la BD del evaluador
      * @return array refrenciado que contiene en la posicion 'nombres'->un string con los nombre de las disciplinas, y en la posicion 'ids'-> un array con los id de las disciplinas registradas
      */
-    private function buscarDisciplinaEvaluador($id) {               
-        $resultado = mysql_query('SELECT id_plan FROM evaluador_plan_estudio WHERE id_evaluador ='.$id);        
-        $disciplina_id=array();
+    private function buscarDisciplinaEvaluador($id) {
+        $resultado = mysql_query('SELECT id_plan FROM evaluador_plan_estudio WHERE id_evaluador =' . $id);
+        $disciplina_id = array();
         $disciplina = "";
-        while($evaludor = mysql_fetch_array($resultado)){
-            $disciplina_id[]=$evaludor["id_plan"];
-            $disciplina .= $this->buscarNombreDisciplinaEvaluador($evaludor["id_plan"]).", ";
+        while ($evaludor = mysql_fetch_array($resultado)) {
+            $disciplina_id[] = $evaludor["id_plan"];
+            $disciplina .= $this->buscarNombreDisciplinaEvaluador($evaludor["id_plan"]) . ", ";
         }
-        $lsta= array('nombres'=>$disciplina,'ids'=>$disciplina_id);        
+        $lsta = array('nombres' => $disciplina, 'ids' => $disciplina_id);
         return $lsta;
     }
-    
+
     /**
      * Metodo para buscar el nombre de una disciplina dado su id
      * @param integer $id_plan identificacion en la BD de la disciplina
      * @return string nombre de la disciplina
      */
-    private function buscarNombreDisciplinaEvaluador($id_plan) {        
-        $resultado = mysql_query('SELECT nombre FROM plan_estudio WHERE id_plan ='.$id_plan);
-        $datos = mysql_fetch_object($resultado);                
+    private function buscarNombreDisciplinaEvaluador($id_plan) {
+        $resultado = mysql_query('SELECT nombre FROM plan_estudio WHERE id_plan =' . $id_plan);
+        $datos = mysql_fetch_object($resultado);
         return utf8_encode($datos->nombre);
     }
 
@@ -133,14 +134,14 @@ class evaluador {
         return false;
     }
 
-    public function editarEvaluador($id, $nuevoEvaluador,$seleccionadas,$viejas) {
+    public function editarEvaluador($id, $nuevoEvaluador, $seleccionadas, $viejas) {
         include 'conectar.php';
-        $resultado = mysql_query("UPDATE  `evaluador` SET  `identificacion` =  '" . $nuevoEvaluador[0] . "',`nombre` =  '" . $nuevoEvaluador[1] . "', `apellido` =  '" . $nuevoEvaluador[2] . "', `telefono` =  '" . $nuevoEvaluador[3] . "', `email` =  '" . $nuevoEvaluador[4] . "', urlcvlac='".$nuevoEvaluador[5]."' WHERE `id_evaluador` =  '" . $id . "' LIMIT 1 ;");
+        $resultado = mysql_query("UPDATE  `evaluador` SET  `identificacion` =  '" . $nuevoEvaluador[0] . "',`nombre` =  '" . $nuevoEvaluador[1] . "', `apellido` =  '" . $nuevoEvaluador[2] . "', `telefono` =  '" . $nuevoEvaluador[3] . "', `email` =  '" . $nuevoEvaluador[4] . "', urlcvlac='" . $nuevoEvaluador[5] . "' WHERE `id_evaluador` =  '" . $id . "' LIMIT 1 ;");
         mysql_close();
 
-        return $this->editarDisciplinas($id,$seleccionadas, $viejas);
+        return $this->editarDisciplinas($id, $seleccionadas, $viejas);
     }
-    
+
     /**
      * Metodo para editar la lista de disciplinas de un evaluador
      * @param integer $id identificacion en la BD del evaluador
@@ -148,12 +149,14 @@ class evaluador {
      * @param array $viejas array de las disicplinas que tenia ya registradas el evaluador
      * @return boolean true si se actualizo correctamenet , en caso contrario false
      */
-    function editarDisciplinas($id,$seleccionadas,$viejas){
-        $resultado = $this->agregarNuevaDisciplinaEvaluador($id,$seleccionadas, $viejas);
+    function editarDisciplinas($id, $seleccionadas, $viejas) {
+        $resultado = $this->agregarNuevaDisciplinaEvaluador($id, $seleccionadas, $viejas);
         $resultado = $this->eliminarDisciplinaNoSeleccionada($id, $seleccionadas, $viejas);
+        $resultado = true;
+        unset($_SESSION['viejas']);
         return $resultado;
     }
-    
+
     /**
      * Metodo para agregar una nueva disciplina seleccionanda  en el formulario editar evaluador
      * @param integer $id identificacion en la BD del evaluador
@@ -161,15 +164,16 @@ class evaluador {
      * @param array $viejas array de las disicplinas que tenia ya registradas el evaluador
      * @return boolean true si se actualizo correctamenet , en caso contrario false
      */
-    function agregarNuevaDisciplinaEvaluador($id,$seleccionadas,$viejas){
+    function agregarNuevaDisciplinaEvaluador($id, $seleccionadas, $viejas) {
         $resultado = false;
-        foreach ($seleccionadas as $id_plan){
-            if(!in_array($id_plan, $viejas)){
-                $resultado = $this->agregarDisciplinasEvaluador($id, $id_plan);                
+        foreach ($seleccionadas as $id_plan) {
+            if (!in_array($id_plan, $viejas)){
+                $resultado = $this->agregarDisciplinasEvaluador($id, $id_plan);
             }
-        }        
+        }
         return $resultado;
     }
+
     /**
      * Metodo para eliminar una disciplina que se quitó en el formulario editar evaluador
      * @param integer $id identificacion en la BD del evaluador
@@ -177,17 +181,15 @@ class evaluador {
      * @param array $viejas array de las disicplinas que tenia ya registradas el evaluador
      * @return boolean true si se actualizo correctamente , en caso contrario false
      */
-    function eliminarDisciplinaNoSeleccionada($id,$seleccionadas,$viejas){
+    function eliminarDisciplinaNoSeleccionada($id, $seleccionadas, $viejas) {
         $resultado = false;
-        foreach ($viejas as $id_plan){
-            if(!in_array($id_plan, $seleccionadas)){
+        foreach ($viejas as $id_plan) {
+            if (!in_array($id_plan, $seleccionadas)){
                 $resultado = $this->eliminarDisciplinaEvaluador($id, $id_plan);
             }
         }
         return $resultado;
     }
-    
-    
 
     public function agregarDisciplinasEvaluador($id_evaluador, $id_plan) {
         include 'conectar.php';
@@ -201,14 +203,14 @@ class evaluador {
 
         return false;
     }
-    
+
     /**
      * Metodo para eliminar una disciplina de un evaluador
      * @param integer $id_evaluador identificacion en la BD del evaluador
      * @param integer $id_plan identificacion de una disciplina en la BD
      * @return boolean true si se eliminó correctamente , en caso contrario false
      */
-    function eliminarDisciplinaEvaluador($id_evaluador,$id_plan){
+    function eliminarDisciplinaEvaluador($id_evaluador, $id_plan) {
         include 'conectar.php';
 
         $resultado = mysql_query("DELETE FROM `proyectofinu`.`evaluador_plan_estudio` WHERE `evaluador_plan_estudio`.`id_evaluador` = $id_evaluador AND `evaluador_plan_estudio`.`id_plan` = $id_plan LIMIT 1");
