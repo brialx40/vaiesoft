@@ -46,7 +46,7 @@ $ver=$eva->buscarEvaluadorIdentificacion($id);
                 <input type="text" class="form-control" name="identificacion" readonly id="identificacion" value="<?php echo $ver['identificacion']?>" onkeypress="return permite(event, 'num')">
                 <br/><br/>
                 <label class="control-label" for="inputSuccess4">Nombres:</label>
-                <input type="text" class="form-control" name="nombre" readonly id="nombre" value="<?php echo $ver['urlcvlac']?>" onkeypress="return permite(event, 'car')">
+                <input type="text" class="form-control" name="nombre" readonly id="nombre" value="<?php echo $ver['nombre']?>" onkeypress="return permite(event, 'car')">
                 <br/><br/>
                 <label class="control-label" for="inputSuccess4">Apellidos:</label>
                 <input type="text" class="form-control" name="apellido" readonly id="apellido" value="<?php echo $ver['apellido']?>" onkeypress="return permite(event, 'car')">
@@ -59,6 +59,9 @@ $ver=$eva->buscarEvaluadorIdentificacion($id);
                 <br><br>
                 <label for="exampleInputEmail1">Url cvLAC:</label>
                 <input type="email" class="form-control" readonly name="email" id="email" value="<?php echo $ver['urlcvlac']?>" >
+                <br><br>
+                <label for="exampleInputEmail1">Disciplina(s):</label>
+                <p class="form-control" style="background: #eeeeee;"><?php echo $ver['disciplinas']['nombres']?></p>
               </div><br/><br/>
               <input class="btn btn-default" type="submit" name="boton" value="Aceptar" />
                     

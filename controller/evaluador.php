@@ -39,7 +39,6 @@ if ($opcion == 1) {//Agregar evaluador
         $id = $eva->agregarEvaluador($evaluador);
         if ($id != false) {
             for ($i = 0; $i < count($disciplinas); $i++) {
-
                 $eva->agregarDisciplinasEvaluador($id, $disciplinas[$i]);
             }
 
@@ -58,15 +57,19 @@ if ($opcion == 1) {//Agregar evaluador
 
 if ($opcion == 2) {//Editar evaluador
     $evaluador = array();
+    $evaluador = array();
     $evaluador[0] = $_POST['identificacion'];
     $evaluador[1] = $_POST['nombre'];
     $evaluador[2] = $_POST['apellido'];
     $evaluador[3] = $_POST['telefono'];
     $evaluador[4] = $_POST['email'];
-    $evaluador[5] = $_POST['id_evaluador'];
+    $evaluador[5] = $_POST['urlcvlac'];
+    $evaluador[6] = $_POST['id_evaluador'];
+    
+    $disciplinas = $_POST['disciplinas'];
+    $viejas = $_SESSION['viejas'];
 
-
-    if ($eva->editarEvaluador($evaluador[5], $evaluador))
+    if ($eva->editarEvaluador($evaluador[6], $evaluador,$disciplinas, $viejas))
         echo "<script> alert (\"Se actualizo la informacion del evaluador correctamente.\"); </script>";
     else
         echo "<script> alert (\"Error. No se permite actualizar la informacion del evaluador.\"); </script>";
