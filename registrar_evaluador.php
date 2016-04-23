@@ -116,20 +116,20 @@ require('head.php');
             </div>
             <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 alert alert-info">
                 <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
-                <img class="img-form" src="img/evaluador.gif">
-            </div>
-            <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8" role="alert">
-                <p align="justify">
-                    La información que registre en el siguiente formulario sera valorada por el 
-                    administrador del sistema para validar su vericidad, posteriormente le llegara 
-                    una notificación a su cuenta de correo electronico con la información referente
-                    a su usuario y Contraseña para seguir el proceso de calificación.
-                    <br><br>
-                    Si tiene alguna duda puede comunicarse al correo electronico: <label>viceinvestigaciones@ufps.edu.co</label>	
-                    <br>
-                    <b>Nota:</b> Si ya tiene una cuenta registrada no podra realizar el registro.</p>
+                    <img class="img-form" src="img/evaluador.gif">
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8" role="alert">
+                    <p align="justify">
+                        La información que registre en el siguiente formulario sera valorada por el 
+                        administrador del sistema para validar su vericidad, posteriormente le llegara 
+                        una notificación a su cuenta de correo electronico con la información referente
+                        a su usuario y Contraseña para seguir el proceso de calificación.
+                        <br><br>
+                        Si tiene alguna duda puede comunicarse al correo electronico: <label>viceinvestigaciones@ufps.edu.co</label>	
+                        <br>
+                        <b>Nota:</b> Si ya tiene una cuenta registrada no podra realizar el registro.</p>
 
-            </div>                                 
+                </div>                                 
             </div>
             <div class="box-content">
 
