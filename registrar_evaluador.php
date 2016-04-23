@@ -111,29 +111,28 @@ require('head.php');
 <div class="row">
     <div class="box col-md-12">
         <div class="box-inner">
-           
             <div class="box-header well" data-original-title="">
                 <h2><i class="glyphicon glyphicon-edit"></i> Registrar Par Evaluador</h2>
             </div>
-            <div class="col-md-2">
-              <img src="img/evaluador.gif">
-                 
+            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 alert alert-info">
+                <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
+                <img class="img-form" src="img/evaluador.gif">
             </div>
-             <div class="col-md-8 alert alert-info" role="alert">
-                    
-                     <p align="justify">
-                     La información que registre en el siguiente formulario sera valorada por el 
-                     administrador del sistema para validar su vericidad, posteriormente le llegara 
-                     una notificación a su cuenta de correo electronico con la información referente
-                     a su usuario y Contraseña para seguir el proceso de calificación.
-                     <br><br>
-                     Si tiene alguna duda puede comunicarse al correo electronico: <b>viceinvestigaciones@ufps.edu.co</b>	
-                     <br>
-                     <b>Nota:</b> Si ya tiene una cuenta registrada no podra realizar el registro.</p>
-                     
-                </div> 
+            <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8" role="alert">
+                <p align="justify">
+                    La información que registre en el siguiente formulario sera valorada por el 
+                    administrador del sistema para validar su vericidad, posteriormente le llegara 
+                    una notificación a su cuenta de correo electronico con la información referente
+                    a su usuario y Contraseña para seguir el proceso de calificación.
+                    <br><br>
+                    Si tiene alguna duda puede comunicarse al correo electronico: <label>viceinvestigaciones@ufps.edu.co</label>	
+                    <br>
+                    <b>Nota:</b> Si ya tiene una cuenta registrada no podra realizar el registro.</p>
+
+            </div>                                 
+            </div>
             <div class="box-content">
-                 
+
                 <form class="form-inline" role="form" method="post" name="form1" id="form1" onSubmit="return validar(this)">
                     <div class="form-group">
                         <label class="control-label" for="inputSuccess4">Identificaci&oacute;n:<span title="Campo Obligatorio" style="color: red; font-size: 12pt;">*</span></label>
