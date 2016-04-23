@@ -195,7 +195,18 @@ public function eliminarPropuesta($id_propuesta)
         return true;    
     }
     
-
+    public function consultarUltimoId()
+    {
+        include 'conectar.php';
+      
+        $resultado = mysql_query("SELECT MAX(`id_propuesta`) FROM `propuesta` ;");
+        
+        mysql_close();
+        
+        $row = mysql_fetch_row($resultado);
+              
+        return $row[0];    
+    }
     
 
 }

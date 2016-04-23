@@ -31,6 +31,7 @@ $opcion=$_GET['opc'];
 
 if($opcion==1)//Agregar propuesta
 {
+     
     $propuesta=array();
     $propuesta[0]=$_POST['convocatoria'];
     $propuesta[2]=$_POST['nombre'];
@@ -62,6 +63,14 @@ if($opcion==1)//Agregar propuesta
     
    if($Pro->agregarPropuesta($propuesta)){
       echo "<script> alert (\"Se registro la propuesta correctamente.\"); </script>";
+      $id_propuesta= $Pro->consultarUltimoId();
+      //archivo
+     $nombre = $_FILES['upload']['name'];
+     $nombre_tmp = $_FILES['upload']['tmp_name'];
+     
+     //guardar
+      move_uploaded_file($nombre_tmp, "../archivos/propuestas/" .$id_propuesta.".pdf");
+ 
       
     }
     else{
@@ -108,8 +117,16 @@ if($opcion==2)//Editar propuesta Admin
     $propuesta[21]=$_POST['id_propuesta']; 
     
     
-    if($Pro->editarPropuesta($propuesta[21], $propuesta))
+    if($Pro->editarPropuesta($propuesta[21], $propuesta)){
       echo "<script> alert (\"Se actualizo la informacion de la propuesta correctamente.\"); </script>";
+     
+      //archivo
+     $nombre = $_FILES['upload']['name'];
+     $nombre_tmp = $_FILES['upload']['tmp_name'];
+     
+     //guardar
+      move_uploaded_file($nombre_tmp, "../archivos/propuestas/" .$propuesta[21].".pdf");
+    }
     else
       echo "<script> alert (\"Error. No se permite actualizar la informacion de la propuesta.\"); </script>";
     
@@ -256,6 +273,33 @@ if($opcion==7)//Editar propuesta investigador
 echo "<script language=Javascript> location.href=\"../".$rol."/propuesta/index.php?id=".$id."\"; </script>";
 die();
 }
+if($opcion==8)//Descargar
+{
 
+
+    $id_propuesta = $_GET['id'];
+    $estado=$_GET['e'];
+    
+    $archivo= $id_propuesta.'.pdf';
+    $ruta = '../archivos/propuestas/'.$archivo;
+
+        if (is_file($ruta))
+        {
+           header('Content-Type: application/force-download');
+           header('Content-Disposition: attachment; filename='.$archivo);
+           header('Content-Transfer-Encoding: binary');
+           header('Content-Length: '.filesize($ruta));
+
+           readfile($ruta);
+           
+        }
+        else{
+            echo "<script> alert (\"Error. No se encontro ningun archivo.\"); </script>";
+        }
+    echo "<script language=Javascript> location.href=\"../admin/propuesta\"; </script>";
+   
+
+die();
+} 
 
 ?>

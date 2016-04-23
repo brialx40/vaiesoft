@@ -127,6 +127,24 @@ $eva = new evaluador();
                     $evaluador=$eva->buscarEvaluadorIdentificacion($ver['evaluador_propuesta']);
                     echo '<input type="text" class="form-control" readonly value="'.$evaluador['nombre'].' '.$evaluador['apellido'].'" >';
                     ?> <br/><br/>
+                    <label class="control-label" for="inputSuccess4">Archivo Adjunto:</label>
+                    <?php 
+                        $archivo= $id.'.pdf';
+                        $ruta = '../../archivos/propuestas/'.$archivo;
+
+                            if (is_file($ruta))
+                            {
+                              echo '<a href="../../controller/propuesta.php?opc=8&id='.$id.'">
+                                       propuesta.pdf <img alt="Descargar" title="Descargar" src="../../img/descargar.png" height="17" width="17"/>
+                                    </a>';
+                            }
+                            else{
+                              echo '<input type="text" class="form-control" readonly value="No se encontraron archivos">  ';
+                            }                      
+                        ?>
+                    
+                                          
+                    <br/><br/>
                     <label class="control-label" for="inputSuccess4">Observaciones del Propuesta:</label>
                     <br/><textarea  class="form-control" readonly size="1000" style="margin-left: 18px; width: 500px; height: 200px;"><?php echo $ver['observaciones']?></textarea>                        
                 </div>

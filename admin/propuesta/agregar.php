@@ -34,9 +34,38 @@ $evaluadores=$eva->buscarEvaluadores();
 
 ?>
     <script type="text/javascript">
-        function validar(f) {
+        
+       function validar(f) {
              
             condicion=true;
+            
+            if(!f.upload.value){
+                alert('Por favor adjunte el archivo de la propuesta en formato pdf');
+                f.upload.focus();
+                condicion=false;
+                return false;
+            }
+            
+            if(f.upload.value){
+               
+                var ext=f.upload.value.substring(f.upload.value.lastIndexOf(".")).toLowerCase();
+                if(ext !== ".pdf"){
+                alert('El archivo adjunto de la propuesta solo se permite en formato pdf');
+                f.upload.value= '';
+                f.upload.focus();
+                condicion=false;
+                return false;
+                }
+                var fileSize = f.upload.files[0].size; 
+                             
+                if (fileSize > (1024 * 1024 * 5)) {
+                    alert ('El archivo adjunto de la propuesta no puede superar 3Mb');
+                    f.upload.value= '';
+                f.upload.focus();
+                condicion=false;
+                return false;
+                }
+            }
             
             if(f.convocatoria.value == '0'){
                 alert('Por favor seleccione una Convocatoria');
@@ -161,7 +190,9 @@ $evaluadores=$eva->buscarEvaluadores();
          })
         
       });
+      
       </script>
+      
 <div>
     <ul class="breadcrumb">
         <li>
@@ -183,7 +214,7 @@ $evaluadores=$eva->buscarEvaluadores();
             </div>
             <div class="box-content">
                 
-                <form class="form-inline" role="form" method="post" name="for" id="for" action="../../controller/propuesta.php?opc=1" onSubmit="return validar(this)">
+                <form class="form-inline" role="form" method="post" name="for" id="for" action="../../controller/propuesta.php?opc=1" onSubmit="return validar(this)" enctype="multipart/form-data">
                     <div class="form-group">
                         <br/>
                               <label class="control-label" for="inputSuccess4">Convocatoria: <span title="Campo Obligatorio" style="color: red; font-size: 12pt;">*</span></label>
@@ -322,19 +353,21 @@ $evaluadores=$eva->buscarEvaluadores();
                             $i=$i+1;
                           endforeach;                                
                         ?>
-                        </select> <br/><br/>
-                        
+                        </select>
+                        <br/><br/>
+                        <label class="control-label" for="inputSuccess4">Adjuntar Archivo:</label>
+                        <input type="file" class="form-control" id="upload" name="upload" accept="application/pdf">  
+                        <br/><br/>
                         <label class="control-label" for="inputSuccess4">Observaciones de la Propuesta:</label>
                         <br/><textarea  class="form-control" name="observaciones" size="1000" style="margin-left: 18px; width: 500px; height: 200px;"></textarea>                        
                         <br/><br/>
-                          <input class="btn btn-default" type="submit" name="boton" value="Enviar" />                      
+                        <input class="btn btn-default" type="submit" name="boton" value="Enviar" />                      
                     </div>
                 </form>
             </div>
         </div>
     </div>   
 </div>
-
-                
+                     
 <?php require('footer.php'); ?>
 

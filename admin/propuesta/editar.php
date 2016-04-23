@@ -44,6 +44,34 @@ $evaluadores=$eva->buscarEvaluadores();
              
             condicion=true;
             
+            if(!f.upload.value&&!f.pdf.value){
+                alert('Por favor adjunte el archivo de la propuesta en formato pdf');
+                f.upload.focus();
+                condicion=false;
+                return false;
+            }
+            
+            if(f.upload.value){
+               
+                var ext=f.upload.value.substring(f.upload.value.lastIndexOf(".")).toLowerCase();
+                if(ext !== ".pdf"){
+                alert('El archivo adjunto de la propuesta solo se permite en formato pdf');
+                f.upload.value= '';
+                f.upload.focus();
+                condicion=false;
+                return false;
+                }
+                var fileSize = f.upload.files[0].size; 
+                             
+                if (fileSize > (1024 * 1024 * 5)) {
+                    alert ('El archivo adjunto de la propuesta no puede superar 3Mb');
+                    f.upload.value= '';
+                f.upload.focus();
+                condicion=false;
+                return false;
+                }
+            }
+            
             if(f.convocatoria.value == '0'){
                 alert('Por favor seleccione una Convocatoria');
                 f.convocatoria.focus();
@@ -169,7 +197,7 @@ $evaluadores=$eva->buscarEvaluadores();
             </div>
             <div class="box-content">
                 
-                <form class="form-inline" role="form" method="post" name="for" id="for" action="../../controller/propuesta.php?opc=2" onSubmit="return validar(this)" >
+                <form class="form-inline" role="form" method="post" name="for" id="for" action="../../controller/propuesta.php?opc=2" onSubmit="return validar(this)" enctype="multipart/form-data">
                     <div class="form-group">
                         <br/>
                               <input name="id_propuesta" type="hidden" id="id_propuesta" value="<?php echo $editar['id_propuesta']?>"/>
@@ -198,10 +226,10 @@ $evaluadores=$eva->buscarEvaluadores();
                               <label class="control-label" for="inputSuccess4">Duraci&oacute;n: <span title="Campo Obligatorio" style="color: red; font-size: 12pt;">*</span></label>
                               <select name="duracion" id="duracion" data-rel="chosen" >
                                 <option value="0">Seleccione</option>
-                                <option <?phpif ($editar['duracion'] == '1 Semestre'){?> selected <?php}?> value="1 Semestre">1 Semestre</option>
-                                <option <?phpif ($editar['duracion'] == '2 Semestres'){?> selected <?php}?> value="2 Semestres">2 Semestres</option>
-                                <option <?phpif ($editar['duracion'] == '3 Semestres'){?> selected <?php}?> value="3 Semestres">3 Semestres</option>
-                                <option <?phpif ($editar['duracion'] == '4 Semestres'){?> selected <?php}?> value="4 Semestres">4 Semestres</option>
+                                <option <?php if ($editar['duracion'] == '1 Semestre'){?> selected <?php } ?> value="1 Semestre">1 Semestre</option>
+                                <option <?php if ($editar['duracion'] == '2 Semestres'){?> selected <?php } ?> value="2 Semestres">2 Semestres</option>
+                                <option <?php if ($editar['duracion'] == '3 Semestres'){?> selected <?php } ?> value="3 Semestres">3 Semestres</option>
+                                <option <?php if ($editar['duracion'] == '4 Semestres'){?> selected <?php } ?> value="4 Semestres">4 Semestres</option>
                               </select> <br/><br/>
                               <label for="fechaInicio" id="fechaInicio" >Fecha Inicio: <span title="Campo Obligatorio" style="color: red; font-size: 12pt;">*</span></label>
                               <input name="fechaInicio" class="form-control" type="date" id="fechaInicio" value="<?php echo $editar['fechaInicio']?>" style="width:230px" />
@@ -340,7 +368,30 @@ $evaluadores=$eva->buscarEvaluadores();
                               $i=$i+1;
                           endforeach;                                 
                         ?>
-                        </select> <br/><br/>
+                        </select>
+                        <br/><br/>
+                        <label class="control-label" for="inputSuccess4">Adjuntar Archivo:</label>
+                        <?php 
+                        $archivo= $id.'.pdf';
+                        $ruta = '../../archivos/propuestas/'.$archivo;
+
+                            if (is_file($ruta))
+                            {
+                              echo '<input type="hidden" id="pdf" name="pdf" value="true"/>
+                                    <a href="../../controller/propuesta.php?opc=8&id='.$id.'">
+                                       propuesta.pdf <img alt="Descargar" title="Descargar" src="../../img/descargar.png" height="17" width="17"/>
+                                    </a>
+                                    <br>
+                                    <label class="control-label" for="inputSuccess4"></label>
+                                    <input type="file" class="form-control" id="upload" name="upload" accept="application/pdf">';
+                            }
+                            else{
+                              echo '<input type="hidden" id="pdf" name="pdf" value=""/><input type="file" class="form-control" id="upload" name="upload" accept="application/pdf">';
+                            }
+                        
+                        
+                        ?>
+                        <br/><br/>
                         <label class="control-label" for="inputSuccess4">Observaciones del Propuesta:</label>
                         <br/><textarea  class="form-control" name="observaciones"  size="1000" style="margin-left: 18px; width: 500px; height: 200px;"><?php echo $editar['observaciones']?></textarea>                        
                         <br/><br/><input class="btn btn-default" type="submit" name="boton" value="Actualizar"  />
