@@ -18,6 +18,7 @@ if ($_SESSION['estado'] == "logeado") {
 
 require "../model/evaluador.php";
 require "../model/usuario.php";
+
 $eva = new evaluador();
 $usu = new usuario();
 $opcion = $_GET['opc'];
