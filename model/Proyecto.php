@@ -183,7 +183,21 @@ public function eliminarProyecto($id_proyecto)
         
         return true;    
     }
-    
+    public function listarProyectosEvaluador($id_evaluador)
+    {
+        include 'conectar.php';
+        
+        $resultado = mysql_query("SELECT * FROM `proyecto` WHERE estado='ACTIVO' AND evaluador_propuesta= $id_evaluador");
+        $proyectos= array();
+ 
+        while($proyecto = mysql_fetch_assoc($resultado))
+        {  $proyectos[] = $proyecto;}
+        
+                      
+        mysql_close();   
+ 
+        return $proyectos;
+    }
 
 }
 

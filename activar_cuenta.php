@@ -1,7 +1,7 @@
 <?php require('head.php'); 
    
 $email = $_GET['id'];
-
+$rol = $_GET['rol'];
 ?>
   
 <div class="row">
@@ -16,8 +16,13 @@ $email = $_GET['id'];
 
                         Bienvenido(a):<br/><br/>
                         Su cuenta ha sido creada, pero debe ser activada antes de usarla. 
-                        Se ha enviado un mensaje de activaci&oacute;n al correo  <?php echo $email;?>.
-
+                        <?php
+                        if($rol != "evaluador")
+                        echo "Se ha enviado un mensaje de activaci&oacute;n al correo  $email.";
+                        else
+                        echo " el administrador del sistema validara su información, posteriormente le llegara una notificación a su cuenta de correo electronico con la información referente a su usuario y contraseña para seguir el proceso de calificación. 
+                        <br>Si tiene alguna duda puede comunicarse al correo electronico: viceinvestigaciones@ufps.edu.co	"; 
+                        ?>
                         <br><br><br>
                         <div  align="center" >
                           <input class="btn btn-default" type="submit" name="boton" value="Aceptar" />

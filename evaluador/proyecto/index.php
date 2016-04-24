@@ -10,10 +10,11 @@ $nombres="";
    } else {
       echo "<script language=Javascript> location.href='../../index.php'; </script>";
    }
+$id = $_SESSION['id']; 
 
 require "../../model/Proyecto.php";
 $proy = new Proyecto();
-$proyectos=$proy->listarProyectos();
+$proyectos=$proy->listarProyectosEvaluador($id);
 
 require "../../model/convocatoria.php";
 $con = new convocatoria();

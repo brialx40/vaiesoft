@@ -43,7 +43,7 @@ if ($usu->iniciarSesion($usuario, $clave)) {
 
         echo "<script language=Javascript> location.href=\"../" . $i[0]['rol'] . "/index.php\"; </script>";
     } else {
-
+        if($i[0]['rol']!= "evaluador"){
         $msg = '<h2 align="center" style = "color:#960e0e; font-size:20px; font-weight:bolder; margin:auto;" > DATOS REGISTRADOS</h2><br><br>';
         $msg.= '<div style="padding-left:10px;margin-left:10px;"> ';
         $msg.= '<p style="font-family: \'Helvetica Neue\',Helvetica,Arial,sans-serif;font-size: 13px;" >';
@@ -62,7 +62,11 @@ if ($usu->iniciarSesion($usuario, $clave)) {
         $msg.='</div>';
 
         enviar_mensaje($email, $i[0]['nombre'] . " " . $i[0]['apellido'], 'Activación de Cuenta', $msg);
-        echo "<script language=Javascript> location.href=\"../activar_cuenta.php?id=$email\"; </script>";
+        echo "<script language=Javascript> location.href=\"../activar_cuenta.php?id=$email&rol=investigador\"; </script>";
+        } else{
+         echo "<script language=Javascript> location.href=\"../activar_cuenta.php?id=$email&rol=evaluador\"; </script>";
+          
+        }
     }
 } else {
     echo "<script> alert (\"No ha podido Iniciar Sesión.\"); </script>";
