@@ -71,7 +71,12 @@ class evaluador {
         $datos = mysql_fetch_object($resultado);
         return utf8_encode($datos->nombre);
     }
-
+    
+    /**
+     * 
+     * @param type $identificacion
+     * @return int
+     */
     public function buscarEvaluadorPorCedula($identificacion) {
         include 'conectar.php';
 
@@ -94,7 +99,11 @@ class evaluador {
 
         return $evaluadores[0];
     }
-
+    
+    /**
+     * 
+     * @return type
+     */
     public function buscarEvaluadores() {
         include 'conectar.php';
 
