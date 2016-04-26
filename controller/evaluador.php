@@ -160,10 +160,8 @@ if ($opcion == 5) {//Inhabilitar evaluador
     $usua = $usu->buscarUsuarioIdPersona($id);
 
     echo $id;
-    if (count($usua) != 0) {
-        echo '2';
-        if ($usu->verificarUsuarioIdPersona($id, 0)) {
-            echo '3';
+    if (count($usua) != 0) {      
+        if ($usu->verificarUsuarioIdPersona($id, 0)) {          
             echo "<script> alert (\"Se cambio la informacion del evaluador correctamente.\"); </script>";
         } else {
             echo "<script> alert (\"Error, no se permite inhabilitar la informacion del evaluador.\"); </script>";
@@ -175,4 +173,62 @@ if ($opcion == 5) {//Inhabilitar evaluador
     echo "<script language=Javascript> location.href=\"../admin/evaluador\"; </script>";
     die();
 }
+
+
+if ($opcion == 6) {//Agregar evaluador registrar evaluador
+    $evaluador = array();
+    $evaluador[0] = $_POST['identificacion'];
+    $evaluador[1] = $_POST['nombre'];
+    $evaluador[2] = $_POST['apellido'];
+    $evaluador[3] = $_POST['telefono'];
+    $evaluador[4] = $_POST['email'];
+    $evaluador[5] = $_POST['urlcvlac'];
+
+    $disciplinas = $_POST['disciplinas'];
+
+    $evaluad = $eva->buscarEvaluadorPorCedula($evaluador[0]);
+
+    if ($evaluad['identificacion'] == 0) {
+        $id = $eva->agregarEvaluador($evaluador);
+        if ($id != false) {
+            for ($i = 0; $i < count($disciplinas); $i++) {
+                $eva->agregarDisciplinasEvaluador($id, $disciplinas[$i]);
+            }
+
+            echo "<script> alert (\"Se registro el evaluador Correctamente.\"); </script>";
+        } else {
+            echo "<script> alert (\"No se pudo registrar el evaluador. Ya existe en el Sistema \"); </script>";
+        }
+    } else {
+        echo "<script> alert (\"No se pudo registrar el evaluador. Ya existe en el Sistema \"); </script>";
+    }
+    echo "<script language=Javascript> location.href=\"../registrar_evaluador.php\"; </script>";
+
+
+    die();
+}
+
+if ($opcion == 7) {//Editar evaluador
+    $evaluador = array();
+    $evaluador = array();
+    $evaluador[0] = $_POST['identificacion'];
+    $evaluador[1] = $_POST['nombre'];
+    $evaluador[2] = $_POST['apellido'];
+    $evaluador[3] = $_POST['telefono'];
+    $evaluador[4] = $_POST['email'];
+    $evaluador[5] = $_POST['urlcvlac'];
+    $evaluador[6] = $_POST['id_evaluador'];
+    
+    $disciplinas = $_POST['disciplinas'];
+    $viejas = $_SESSION['viejas'];
+
+    if ($eva->editarEvaluador($evaluador[6], $evaluador, $disciplinas, $viejas))
+        echo "<script> alert (\"Se actualizo la informacion del evaluador correctamente.\"); </script>";
+    else
+        echo "<script> alert (\"Error. No se permite actualizar la informacion del evaluador.\"); </script>";
+
+    echo "<script language=Javascript> location.href=\"../evaluador/evaluador\"; </script>";
+    die();
+}
+
 ?>

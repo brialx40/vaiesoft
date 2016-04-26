@@ -118,6 +118,25 @@ class evaluador {
 
         return $evaluadores;
     }
+    
+    /**
+     * 
+     * @return type
+     */
+    public function buscarEvaluadoresAreaConocimiento($area) {
+        include 'conectar.php';
+
+        $resultado = mysql_query("select eva.* from evaluador as eva inner join evaluador_plan_estudio as evap on (eva.id_evaluador = evap.id_evaluador) inner join plan_estudio as pla on (evap.id_plan = pla.id_plan) inner join facultad as fac on (pla.id_facultad = fac.id_facultad) where fac.id_facultad = $area ");
+        $evaluadores = array();
+
+        while ($evaluador = mysql_fetch_assoc($resultado)) {
+            $evaluadores[] = $evaluador;
+        }
+
+        mysql_close();
+
+        return $evaluadores;
+    }
 
     public function eliminarEvaluador($id) {
         require 'conectar.php';
@@ -176,7 +195,7 @@ class evaluador {
     function agregarNuevaDisciplinaEvaluador($id, $seleccionadas, $viejas) {
         $resultado = false;
         foreach ($seleccionadas as $id_plan) {
-            if (!in_array($id_plan, $viejas)){
+            if (empty($viejas) || !in_array($id_plan, $viejas)){
                 $resultado = $this->agregarDisciplinasEvaluador($id, $id_plan);
             }
         }
@@ -192,10 +211,12 @@ class evaluador {
      */
     function eliminarDisciplinaNoSeleccionada($id, $seleccionadas, $viejas) {
         $resultado = false;
+        if(!empty($viejas)){
         foreach ($viejas as $id_plan) {
             if (!in_array($id_plan, $seleccionadas)){
                 $resultado = $this->eliminarDisciplinaEvaluador($id, $id_plan);
             }
+        }
         }
         return $resultado;
     }

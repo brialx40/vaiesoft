@@ -70,8 +70,8 @@
                         <li class="nav-header">Menu</li>
                         <li><a class="ajax-link" href="index.php"><i class="glyphicon glyphicon-home"></i><span> Inicio</span></a>
                         </li>
-                         <li><a class="ajax-link" href="evaluador"><i
-                                    class="glyphicon glyphicon-list-alt"></i><span> Mi perfil</span></a></li>
+                        <li><a class="ajax-link" href="evaluador"><i
+                                    class="glyphicon glyphicon-book"></i><span> Evaluador</span></a></li>
                         <li><a class="ajax-link" href="propuesta"><i
                                     class="glyphicon glyphicon-book"></i><span> Propuesta</span></a></li>
                         <li><a class="ajax-link" href="proyecto"><i

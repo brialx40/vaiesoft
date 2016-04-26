@@ -5,7 +5,7 @@ require('header.php');
 $nombres = "";
 
 
-if ($_SESSION['estado'] == "logeado" && $_SESSION['rol'] == "evaluador") {
+if ($_SESSION['estado'] == "logeado" && $_SESSION['rol'] == "representante") {
     $nombres = $_SESSION['usuario'];
 } else {
     echo "<script language=Javascript> location.href='../index.php'; </script>";
@@ -24,11 +24,11 @@ if ($_SESSION['estado'] == "logeado" && $_SESSION['rol'] == "evaluador") {
     <div class="box col-md-12" >
         <div class="box-inner homepage-box">
             <div class="box-header well" data-original-title="">
-                <h2><i class="glyphicon glyphicon-list-alt"></i>Inicio Par Evaluador</h2>
+                <h2><i class="glyphicon glyphicon-list-alt"></i>Inicio Representate Facultad</h2>
             </div>
             <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 panel panel-default">
                     <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
-                        <img class="img-form" src="../img/evaluador.gif">
+                        <img class="img-form" src="../img/facultades.gif">
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-12 col-lg-8">
                         <br><br><br>

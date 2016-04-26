@@ -1,16 +1,34 @@
+<?php require('header.php'); ?>
 <?php
-require('head.php');
+@session_start();
+$nombres = "";
+
+
+if ($_SESSION['estado'] == "logeado" && $_SESSION['rol'] == "evaluador") {
+    //$nombres=$_SESSION['nombre'];
+    //$cedula=$_SESSION['cedula'];
+} else {
+    echo "<script language=Javascript> location.href='../../index.php'; </script>";
+}
+
+require "../../model/evaluador.php";
+$eva = new evaluador();
+$id = $_SESSION['id'];
+$editar = $eva->buscarEvaluadorIdentificacion($id);
+
+$_SESSION['viejas']=$editar['disciplinas']['ids'];
 ?>
 <script type="text/javascript">
     function validar(f) {
 
         condicion = true;
-        if (f['disciplinas[]'].selectedIndex < 0) {
-            alert('Por favor llene el campo de Disciplinas');
-            condicion = false;
-            return false;
+        
+        if(f['disciplinas[]'].selectedIndex < 0){
+          alert('Por favor llene el campo de Disciplinas');         
+          condicion=false;
+          return false;
         }
-
+        
         if (f.identificacion.value == '') {
             alert('Por favor llene el campo Identificacion');
             f.identificacion.focus();
@@ -47,7 +65,7 @@ require('head.php');
         }
 
         if (condicion != false) {
-            document.getElementById("form1").action = "controller/evaluador.php?opc=6";
+            document.getElementById("form1").action = "../../controller/evaluador.php?opc=7";
             document.getElementById("form1").submit();
 
         }
@@ -96,14 +114,13 @@ require('head.php');
     }
 
 </script>
-
 <div>
     <ul class="breadcrumb">
         <li>
-            <a href="index.php">Inicio</a>
-        </li>
+            <a href="../index.php">Inicio</a>
+        </li>      
         <li>
-            <a href="#">Registrar Par Evaluador</a>
+            <a href="#">Editar</a>
         </li>
     </ul>
 </div>
@@ -112,74 +129,56 @@ require('head.php');
     <div class="box col-md-12">
         <div class="box-inner">
             <div class="box-header well" data-original-title="">
-                <h2><i class="glyphicon glyphicon-edit"></i> Registrar Par Evaluador</h2>
-            </div>
-            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 alert alert-info">
-                <div class="col-md-2 col-sm-2 col-xs-12 col-lg-2">
-                    <img class="img-form" src="img/evaluador.gif">
-                </div>
-                <div class="col-md-8 col-sm-8 col-xs-12 col-lg-10" role="alert">
-                    <p align="justify">
-                        La información que registre en el siguiente formulario sera valorada por el 
-                        administrador del sistema para validar su vericidad, posteriormente le llegara 
-                        una notificación a su cuenta de correo electronico con la información referente
-                        a su usuario y Contraseña para seguir el proceso de calificación.
-                        <br><br>
-                        Si tiene alguna duda puede comunicarse al correo electronico: <label>viceinvestigaciones@ufps.edu.co</label>	
-                        <br>
-                        <b>Nota:</b> Si ya tiene una cuenta registrada no podra realizar el registro.</p>
-
-                </div>                                 
+                <h2><i class="glyphicon glyphicon-edit"></i> Actualizar Evaluador</h2>
             </div>
             <div class="box-content">
+
                 <form class="form-inline" role="form" method="post" name="form1" id="form1" onSubmit="return validar(this)">
                     <div class="form-group">
-                        <label class="control-label" for="inputSuccess4">Identificaci&oacute;n:<span title="Campo Obligatorio" style="color: red; font-size: 12pt;">*</span></label>
-                        <input type="text" class="form-control" name="identificacion" id="identificacion" onkeypress="return permite(event, 'num')">
+                        <input name="id_evaluador" type="hidden" id="id_evaluador" value="<?php echo $editar['id_evaluador'] ?>"/>
+                        <label class="control-label" for="inputSuccess4">Identificaci&oacute;n<span title="Campo Obligatorio" style="color: red; font-size: 12pt;">*</span></label>
+                        <input type="text" class="form-control" name="identificacion" id="identificacion" value="<?php echo $editar['identificacion'] ?>" onkeypress="return permite(event, 'num')">
                         <br/><br/>
                         <label class="control-label" for="inputSuccess4">Nombres:<span title="Campo Obligatorio" style="color: red; font-size: 12pt;">*</span></label>
-                        <input type="text" class="form-control" name="nombre" id="nombre" onKeyUp="this.value = this.value.toUpperCase();" onkeypress="return permite(event, 'car')">
+                        <input type="text" class="form-control" name="nombre" id="nombre" onKeyUp="this.value = this.value.toUpperCase();" value="<?php echo $editar['nombre'] ?>" onkeypress="return permite(event, 'car')">
                         <br/><br/>
                         <label class="control-label" for="inputSuccess4">Apellidos:<span title="Campo Obligatorio" style="color: red; font-size: 12pt;">*</span></label>
-                        <input type="text" class="form-control" name="apellido" id="apellido"  onKeyUp="this.value = this.value.toUpperCase();" onkeypress="return permite(event, 'car')">
+                        <input type="text" class="form-control" name="apellido" id="apellido" onKeyUp="this.value = this.value.toUpperCase();" value="<?php echo $editar['apellido'] ?>" onkeypress="return permite(event, 'car')">
                         <br/><br/>
                         <label class="control-label" for="inputSuccess4">Tel&eacute;fono:<span title="Campo Obligatorio" style="color: red; font-size: 12pt;">*</span></label>
-                        <input type="text" class="form-control" name="telefono" id="telefono" onkeypress="return permite(event, 'num')">
+                        <input type="text" class="form-control" name="telefono" id="telefono" value="<?php echo $editar['telefono'] ?>" onkeypress="return permite(event, 'num')">
                         <br/><br/>
                         <label for="exampleInputEmail1">Email:<span title="Campo Obligatorio" style="color: red; font-size: 12pt;">*</span></label>
-                        <input type="email" class="form-control" name="email" id="email" >
+                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" id="email" value="<?php echo $editar['email'] ?>" >
                         <br/><br/>
                         <label for="exampleInputEmail1">Url CvLAC:<span title="Campo Obligatorio" style="color: red; font-size: 12pt;">*</span></label>
-                        <input type="url" class="form-control" placeholder="http://www.example.com/" name="urlcvlac" id="urlcvlac">
+                        <input type="url" class="form-control" placeholder="http://www.example.com/" name="urlcvlac" id="urlcvlac" value="<?php echo $editar['urlcvlac'] ?>">
                         <br/><br/>
                         <label for="exampleInputEmail1">Disciplinas:<span title="Campo Obligatorio" style="color: red; font-size: 12pt;">*</span></label>
                         <select class="selectpicker" name="disciplinas[]" id="disciplinas[]" multiple>             
                             <?php
-                            require "model/facultad.php";
-                            require "model/PlanEstudio.php";
+                            require "../../model/facultad.php";
+                            require "../../model/PlanEstudio.php";
                             $fac = new facultad();
                             $facultades = $fac->listaFacultad();
                             foreach ($facultades as $f):
                                 echo '<optgroup label="' . $f['nombre'] . '">';
-
                                 $plan = new PlanEstudio();
                                 $planes = $plan->listarPlanEstudioFacultad($f['id_facultad']);
                                 foreach ($planes as $p):
-                                    echo ' <option value="' . $p['id_plan'] . '">' . utf8_encode($p['nombre']) . '</option> ';
+                                    if(in_array($p['id_plan'], $editar['disciplinas']['ids'])){
+                                        echo ' <option value="' . $p['id_plan'] . '" selected>' . utf8_encode($p['nombre']) . '</option> ';
+                                    }else{
+                                        echo ' <option value="' . $p['id_plan'] . '">' . utf8_encode($p['nombre']) . '</option> ';
+                                    }
                                 endforeach;
                                 echo '</optgroup>';
                             endforeach;
                             ?>
                         </select>
-
-
-                        <br/><br/>
-
-
-                        <br/><br/>
-                        <input class="btn btn-default" type="submit" name="boton" value="Enviar" />                    
+                    </div><br/><br/>
+                    <input class="btn btn-default" type="submit" name="boton" value="Actualizar" />
                 </form>
-
                 <br>
             </div>
         </div>
@@ -191,4 +190,3 @@ require('head.php');
 </div><!--/row-->
 
 <?php require('footer.php'); ?>
-

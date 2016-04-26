@@ -28,10 +28,22 @@
     <link href='../../css/jquery.iphone.toggle.css' rel='stylesheet'>
     <link href='../../css/uploadify.css' rel='stylesheet'>
     <link href='../../css/animate.min.css' rel='stylesheet'>
-    <link href='../../css/style.css' rel='stylesheet'>
+    
+
     <!-- jQuery -->
     <script src="../../bower_components/jquery/jquery.min.js"></script>
-
+    <script src="../../js/ajax.js"></script>
+    
+    <!-- bootstrap -->
+     <script src="../../js/bootstrap-select.min.js"></script>
+     <script src="../../js/bootstrap-select.js.map"></script>
+     <script src="../../js/bootstrap-select.js"></script>
+     
+     <link href='../../css/bootstrap-select.css' rel='stylesheet'>
+     <link href='../../css/bootstrap-select.css.map' rel='stylesheet'>
+     <link href='../../css/bootstrap-select.min.css' rel='stylesheet'>
+ 
+    
     <link rel="shortcut icon" href="../../img/ufps.ico">
     
 </head>
@@ -48,7 +60,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="../../index.php"> <img alt="PROYECTOS FINU" src="../../img/banner2.jpg" />
+            <a class="navbar-brand" href="../index.php"> <img alt="PROYECTOS FINU" src="../../img/banner2.jpg" />
                 </a>           
         </div>
     </div>
@@ -69,13 +81,13 @@
                         <li class="nav-header">Menu</li>
                         <li><a class="ajax-link" href="../index.php"><i class="glyphicon glyphicon-home"></i><span> Inicio</span></a>
                         </li>
-                         <li><a class="ajax-link" href="../evaluador"><i
+                        <li><a class="ajax-link" href="../evaluador"><i
                                     class="glyphicon glyphicon-list-alt"></i><span> Mi perfil</span></a></li>
-                        <li><a class="ajax-link" href="index.php"><i
+                        <li><a class="ajax-link" href="../propuesta"><i
                                     class="glyphicon glyphicon-book"></i><span> Propuesta</span></a></li>
                         <li><a class="ajax-link" href="../proyecto"><i
                                     class="glyphicon glyphicon-list-alt"></i><span> Proyecto</span></a></li>
-                      
+                        
                         <li><a class="ajax-link" href="../../controller/cerrarsesion.php"><i
                                     class="glyphicon glyphicon-log-out"></i><span> Cerrar Sesi&oacute;n</span></a></li>
                     </ul>
